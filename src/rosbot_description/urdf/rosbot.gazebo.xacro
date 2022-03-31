@@ -1,10 +1,13 @@
 <?xml version="1.0"?>
-<robot>
+<robot name="rosbot_gazebo" 
+  xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <gazebo>
     <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
+      <!--<robotNamespace>$(arg robot_namespace)</robotNamespace>-->
       <updateRate>10.0</updateRate>
-      <robotBaseFrame>/base_link</robotBaseFrame>
+      <robotBaseFrame>base_link</robotBaseFrame>
+      <!-- <robotBaseFrame>$(arg robot_namespace)/base_link</robotBaseFrame> -->
       <wheelSeparation>0.20</wheelSeparation>
       <wheelDiameter>0.08</wheelDiameter>
       <torque>5</torque>
@@ -12,22 +15,29 @@
       <rightFrontJoint>front_right_wheel_hinge</rightFrontJoint>
       <leftRearJoint>rear_left_wheel_hinge</leftRearJoint>
       <rightRearJoint>rear_right_wheel_hinge</rightRearJoint>
-      <topicName>cmd_vel</topicName>
-      <commandTopic>cmd_vel</commandTopic>
+      <!--<topicName>$(arg robot_namespace)/cmd_vel</topicName>
+      <commandTopic>$(arg robot_namespace)/cmd_vel</commandTopic> -->
+      <!--<topicName>/cmd_vel</topicName>
+      <commandTopic>cmd_vel</commandTopic> -->
       <broadcastTF>true</broadcastTF>
-      <odometryTopic>odom</odometryTopic>
-      <odometryFrame>/odom</odometryFrame>
+      <!--<odometryTopic>$(arg tf_pre)/odom</odometryTopic>-->
+      <!--<odometryFrame>$(arg tf_pre)/odom</odometryFrame>-->
+      <!--<odometryTopic>odom</odometryTopic>
+      <odometryFrame>/odom</odometryFrame>-->
       <covariance_x>0.000100</covariance_x>
       <covariance_y>0.000100</covariance_y>
       <covariance_yaw>0.010000</covariance_yaw>
     </plugin>
   </gazebo>
 
+  
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-      <legacyModeNS>true</legacyModeNS>
+       <!-- <robotNamespace>$(arg robot_namespace)</robotNamespace> -->
+       <legacyModeNS>true</legacyModeNS> 
     </plugin>
   </gazebo>
+  
 
   <gazebo reference="base_link">
     <material>Gazebo/White</material>
